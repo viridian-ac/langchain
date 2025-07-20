@@ -1,5 +1,4 @@
 # Import necessary libraries
-import logging  # For logging errors and information
 import os  # For accessing environment variables
 from langchain_community.llms import OpenAI  # Import OpenAI LLM from langchain_community
 from langchain.prompts import PromptTemplate  # For creating prompt templates
