@@ -185,3 +185,5 @@ docs/docs/templates
 prof
 virtualenv/
 cookbook/start.py
+cookbook/document.pdf
+cookbook/document.pdf
