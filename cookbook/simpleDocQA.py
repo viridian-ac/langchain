@@ -3,11 +3,11 @@ import os  # Provides access to environment variables (e.g., for API keys)
 from dotenv import load_dotenv  # Loads environment variables from a .env file
 from langchain_community.document_loaders import PyPDFLoader  # Loads and extracts text from PDF files
 from langchain.text_splitter import RecursiveCharacterTextSplitter  # Splits text into manageable chunks
-from langchain_openai import OpenAIEmbeddings  # Non-deprecated OpenAI embeddings for text vectorization
+from langchain_openai import OpenAIEmbeddings  # Generates vector embeddings for text using OpenAI's model
 from langchain_community.vectorstores import FAISS  # FAISS vector store for efficient similarity search
 from langchain.chains import RetrievalQA  # Creates a question-answering chain with retrieval
-from langchain_openai import ChatOpenAI  # Non-deprecated OpenAI chat model for generating answers
-from openai import RateLimitError, OpenAIError, AuthenticationError  # OpenAI-specific error classes
+from langchain_openai import ChatOpenAI  # OpenAI's chat model for generating answers
+from openai import RateLimitError, OpenAIError, AuthenticationError  # OpenAI-specific error handling classes
 
 # Load environment variables from a .env file in the project directory
 # The .env file should contain key-value pairs, e.g., OPENAI_API_KEY=your-api-key-here
@@ -31,9 +31,9 @@ except FileNotFoundError:
     raise FileNotFoundError("❌ The file 'document.pdf' was not found in the working directory.")
 
 # Step 2: Split the document into smaller chunks
-# RecursiveCharacterTextSplitter breaks the text into chunks for efficient embedding and retrieval
+# RecursiveCharacterTextSplitter divides text into chunks for efficient embedding and retrieval
 # chunk_size=1000 limits each chunk to ~1000 characters to balance context and performance
-# chunk_overlap=200 ensures 200 characters of overlap between chunks to preserve context across splits
+# chunk_overlap=200 ensures 200 characters of overlap between chunks to preserve context
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 chunks = text_splitter.split_documents(documents)  # Split the loaded documents into chunks
 
@@ -67,7 +67,7 @@ query = "What is the main argument of the author?"
 
 # Execute the query with error handling
 try:
-    result = qa_chain({"query": query})  # Run the QA chain with the query
+    result = qa_chain.invoke({"query": query})  # Run the QA chain with the query using invoke
 except RateLimitError:
     print("⚠️ Rate limit exceeded. Please check your OpenAI API quota or try again later.")
     exit(1)  # Exit the program on rate limit error to avoid further API calls
