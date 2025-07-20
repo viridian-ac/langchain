@@ -1,7 +1,7 @@
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-
+import start
 # Step 1: Define the prompt template
 prompt = PromptTemplate(
     input_variables=["question"],
@@ -9,7 +9,7 @@ prompt = PromptTemplate(
 )
 
 # Step 2: Choose an LLM (GPT via OpenAI)
-llm = OpenAI(temperature=0.7)
+llm = OpenAI(temperature=0.7, OPENAI_API_KEY=start.OPENAI_API_KEY)
 
 # Step 3: Create the chain
 chain = LLMChain(llm=llm, prompt=prompt)
